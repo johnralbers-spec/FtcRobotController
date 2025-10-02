@@ -68,7 +68,7 @@ public class ElementUnknownAuto extends LinearOpMode {
 
 
     static final double     FORWARD_SPEED = 0.6;
-    static final double     TURN_SPEED    = 0.5;
+
 
     @Override
     public void runOpMode() {
@@ -108,23 +108,12 @@ public class ElementUnknownAuto extends LinearOpMode {
         }
 
         // Step 2:  Spin right for 1.3 seconds
-        frontLeft.setPower(TURN_SPEED);
-        frontRight.setPower(TURN_SPEED);
-        backLeft.setPower(TURN_SPEED);
-        backRight.setPower(TURN_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-            telemetry.addData("Path", "Leg 2: %4.1f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+
+
 
         // Step 3:  Drive Backward for 1 Second
 
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 3: %4.1f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+
 
         // Step 4:  Stop
         frontLeft.setPower(0);
