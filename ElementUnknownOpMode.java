@@ -131,8 +131,6 @@ public class ElementUnknownOpMode extends LinearOpMode {
                 intake.setPower(1);
             } else if (gamepad1.b) {
                 intake.setPower(-1);
-            } else {
-                intake.setPower(0);
             }
             // Send calculated power to wheels
             frontLeft.setPower(frontLeftPower);
