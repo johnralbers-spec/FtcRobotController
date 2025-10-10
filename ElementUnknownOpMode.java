@@ -49,8 +49,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@TeleOp(name="OpMode", group="Linear OpMode")
-@Disabled
+@TeleOp(name="OpMode", group="Robot")
+
 public class ElementUnknownOpMode extends LinearOpMode {
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
@@ -63,10 +63,10 @@ public class ElementUnknownOpMode extends LinearOpMode {
     public void runOpMode() {
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
-        frontLeft = hardwareMap.get(DcMotor.class, "front_left_drive");
-        backLeft = hardwareMap.get(DcMotor.class, "back_left_drive");
-        frontRight = hardwareMap.get(DcMotor.class, "front_right_drive");
-        backRight = hardwareMap.get(DcMotor.class, "back_right_drive");
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
         intake = hardwareMap.get(DcMotor.class, "intake");
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -78,11 +78,11 @@ public class ElementUnknownOpMode extends LinearOpMode {
         // when you first test your robot, push the left joystick forward and observe the direction the wheels turn.
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+        intake.setDirection(DcMotor.Direction.REVERSE);
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -97,10 +97,10 @@ public class ElementUnknownOpMode extends LinearOpMode {
             double yaw     =  gamepad1.right_stick_x;
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
-            double frontLeftPower = axial + lateral + yaw;
-            double frontRightPower = axial - lateral - yaw;
-            double backLeftPower   = axial - lateral + yaw;
-            double backRightPower  = axial + lateral - yaw;
+            double frontLeftPower = axial + lateral - yaw;
+            double frontRightPower = axial - lateral + yaw;
+            double backLeftPower   = axial - lateral - yaw;
+            double backRightPower  = axial + lateral + yaw;
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
             max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
@@ -129,6 +129,8 @@ public class ElementUnknownOpMode extends LinearOpMode {
             */
             if (gamepad1.a) {
                 intake.setPower(1);
+            } else if (gamepad1.b) {
+                intake.setPower(-1);
             } else {
                 intake.setPower(0);
             }
